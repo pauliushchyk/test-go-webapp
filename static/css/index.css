@@ -33,6 +33,8 @@ body {
 
   border: none;
   background-color: transparent;
+
+  cursor: pointer;
 }
 
 .title {
@@ -169,17 +171,12 @@ body {
   border-bottom: 1px solid #e0e0e0;
 }
 
-.customers tr th button {
-  margin: 0;
-  padding: 0;
-
-  cursor: pointer;
-
-  border: none;
-  background-color: transparent;
+.customers tr th a {
+  color: #5f6368;
+  text-decoration: none;
 }
 
-.customers tr th button:focus {
+.customers tr th a.active {
   color: #5d59f7;
 
   outline: none;

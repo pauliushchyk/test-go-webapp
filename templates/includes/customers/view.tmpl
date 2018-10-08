@@ -18,25 +18,25 @@
   <thead>
     <tr>
       <th>
-        <button>ID</button>
+        <a data-field="id">ID</a>
       </th>
       <th>
-        <button>First Name</button>
+        <a data-field="first_name">First Name</a>
       </th>
       <th>
-        <button>Last Name</button>
+        <a data-field="last_name">Last Name</a>
       </th>
       <th>
-        <button>Birth Day</button>
+        <a data-field="birth_date">Birth Day</a>
       </th>
       <th>
-        <button>Gender</button>
+        <a data-field="gender">Gender</a>
       </th>
       <th>
-        <button>Email</button>
+        <a data-field="email">Email</a>
       </th>
       <th>
-        <button>Address</button>
+        <a data-field="address">Address</a>
       </th>
       <th></th>
     </tr>
@@ -77,22 +77,28 @@
 <div id="pagination" data-count="{{ .count }}"></div>
 
 <script>
-  function createLink(page) {
+  const createLink = (page) => {
     const params = window.location.search
       .replace('?', '')
       .split('&')
       .filter(param => !param.includes('page'))
-      .join();
+      .join('&');
 
     const a = document.createElement('a');
 
-    a.setAttribute('href', `/customers?page=${page}&${params}`);
+    let query = `/customers?page=${page}`;
+
+    if (params.length > 0) {
+      query += `&${params}`;
+    }
+
+    a.setAttribute('href', query);
     a.text = page;
 
     return a;
   }
 
-  function createSpan() {
+  const createSpan = () => {
     const span = document.createElement('span');
 
     span.innerText = '...';
@@ -100,18 +106,19 @@
     return span;
   }
 
-  (function pagination() {
+  (() => {
     const element = document.getElementById('pagination');
 
-    const current = window.location.search
+    const pageParam = window.location.search
       .replace('?', '')
       .split('&')
       .find(param => param.includes('page'));
+    const page = pageParam ? pageParam.replace('page=', '') : 0;
 
     const last = Math.ceil(element.dataset.count / 10);
     const delta = 2;
-    const left = current - delta;
-    const right = current + delta + 1;
+    const left = page - delta;
+    const right = page + delta + 1;
     const range = [];
     let l;
 
@@ -134,6 +141,39 @@
 
       element.appendChild(createLink(i));
     }
+  })();
+
+  (() => {
+    const params = window.location.search
+      .replace('?', '')
+      .split('&');
+
+    const currentParams = params.filter(param => !param.includes('by') && !param.includes('order')).join('&');
+
+    const byParam = params.find(param => param.includes('by'));
+    const by = byParam && byParam.replace('by=', '');
+
+    const orderParam = params.find(param => param.includes('order'));
+
+    const links = document.querySelectorAll('.customers tr th a[data-field]');
+
+    links.forEach(link => {
+      let query = `/customers?by=${link.dataset.field}`;
+
+      if (currentParams.length > 0) {
+        query += `&${currentParams}`;
+      }
+
+      if (link.dataset.field === by) {
+        link.classList.add('active');
+
+        if (!orderParam) {
+          query += '&order=desc';
+        }
+      }
+
+      link.setAttribute('href', query);
+    })
   })();
 </script>
 
