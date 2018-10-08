@@ -5,7 +5,9 @@ import (
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres" // postgres provider
+	_ "github.com/jinzhu/gorm/dialects/sqlite"   // sqlite provider
 	"github.com/pauliushchyk/test-go-webapp/config"
+	"github.com/pauliushchyk/test-go-webapp/models"
 )
 
 var db *gorm.DB
@@ -31,6 +33,21 @@ func OpenConnection() *gorm.DB {
 	if e != nil {
 		panic("failed to connect database")
 	}
+
+	return db
+}
+
+// OpenTestConnection opens connection to test database
+func OpenTestConnection() *gorm.DB {
+	var e error
+
+	db, e = gorm.Open("sqlite3", "/tmp/test.db")
+
+	if e != nil {
+		panic("failed to connect database")
+	}
+
+	db.AutoMigrate(&models.Customer{})
 
 	return db
 }
