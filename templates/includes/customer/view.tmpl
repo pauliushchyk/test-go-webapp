@@ -1,0 +1,40 @@
+{{ define "content" }}
+
+<button class="back" id="back-button">
+  <i class="fa fa-arrow-left"></i>
+  <span>back</span>
+</button>
+
+<div class="customer-card">
+  <h3 class="customer-card__title customer-card__block">
+    {{ .customer.FirstName }} {{ .customer.LastName }}
+    <span class="customer-card__badge">{{ .customer.Gender }}</span>
+  </h3>
+
+  <div class="customer-card__body">
+    {{ if .customer.Email }}
+    <p class="customer-card__block">
+      Email: {{ .customer.Email }}
+    </p>
+    {{end}}
+
+    {{ if .customer.Address }}
+    <p class="customer-card__block">
+      Address: {{ .customer.Address }}
+    </p>
+    {{end}}
+
+    {{ if .customer.BirthDate }}
+    <p class="customer-card__block">
+      Date of Birth: {{ .customer.BirthDate.Format "January 2006" }}
+    </p>
+    {{end}}
+  </div>
+
+  <p class="customer-card__block">
+    <a class="button button--accent " href="/customer/{{ .customer.ID }}/update">Update</a>
+    <a class="button button--accent " href="/customer/{{ .customer.ID }}/delete">Delete</a>
+  </p>
+</div>
+
+{{ end }}

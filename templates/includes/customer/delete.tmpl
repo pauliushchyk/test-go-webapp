@@ -1,0 +1,23 @@
+{{ define "content" }}
+
+<button class="back" id="back-button">
+  <i class="fa fa-arrow-left"></i>
+  <span>back</span>
+</button>
+
+<h2 class="title">Are you sure you want to delete {{ .customer.FirstName }} {{ .customer.LastName }}?</h2>
+
+<button id="delete-button" class="button" data-id="{{ .customer.ID }}" type="button">Yes, I am</button>
+
+<script>
+  const button = document.getElementById('delete-button');
+
+  button.addEventListener('click', () => {
+    console.log(`/customer/${button.dataset.id}/delete`)
+    fetch(`/customer/${button.dataset.id}/delete`, { method: 'DELETE' }).then(() => {
+      window.location.href = '/customers'
+    })
+  })
+</script>
+
+{{ end }}
