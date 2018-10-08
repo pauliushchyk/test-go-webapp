@@ -1,6 +1,6 @@
 # test-go-webapp
 
-## start up
+## set up
 
 1. install [dep](https://golang.github.io/dep/docs/introduction.html)
 2. run `dep ensure`
