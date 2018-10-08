@@ -1,7 +1,7 @@
 body {
   font-size: 14px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-  Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 
   background-color: #fafafa;
 }
@@ -10,6 +10,17 @@ body {
   body {
     font-size: 16px;
   }
+}
+
+.visually-hidden {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0 !important;
+  border: 0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden;
 }
 
 .not-found-placeholder {
@@ -303,4 +314,84 @@ body {
 
 p.customer-card__block {
   font-weight: 400;
+}
+
+.form {
+  display: grid;
+  grid-row-gap: 1.2em;
+
+  margin: 0 auto;
+
+  max-width: 400px;
+}
+
+.form-inline-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 1em;
+}
+
+.form-field:last-of-type {
+  margin-bottom: 2em;
+}
+
+.form-field input {
+  display: block;
+
+  padding: 1em 2em;
+
+  width: 100%;
+
+  color: #202124;
+
+  box-shadow: 0 2px 30px 0px rgba(204, 204, 204, 0.3);
+  box-sizing: border-box;
+
+  border-width: 0;
+  border-color: transparent;
+  border-radius: 3.75em;
+}
+
+.form input:focus {
+  outline: none;
+}
+
+.form input::placeholder {
+  color: #c6cfd9;
+  font-weight: 100;
+
+  opacity: 1;
+}
+
+.form input:-ms-input-placeholder {
+  color: #c6cfd9;
+  font-weight: 100;
+}
+
+.form input::-ms-input-placeholder {
+  color: #c6cfd9;
+  font-weight: 100;
+}
+
+.form-checkbox-field label {
+  display: block;
+
+  padding: 1em 2em;
+
+  color: #202124;
+
+  background-color: #ffffff;
+
+  border-radius: 1.5em;
+  box-shadow: 0 2px 30px 0px rgba(204, 204, 204, 0.3);
+}
+
+.form-checkbox-field input:checked + label {
+  color: #ffffff;
+
+  background-color: #5d59f7;
+}
+
+.form-button {
+  height: 56px;
 }
