@@ -42,10 +42,10 @@ func main() {
 		cr.GET("/:id", controllers.GetCustomerView)
 
 		cr.GET("/:id/update", controllers.UpdateCustomerView)
-		cr.PUT("/:id/update", controllers.UpdateCustomer)
+		cr.POST("/:id/update", controllers.UpdateCustomer)
 
 		cr.GET("/:id/delete", controllers.DeleteCustomerView)
-		cr.DELETE("/:id/delete", controllers.DeleteCustomer)
+		cr.POST("/:id/delete", controllers.DeleteCustomer)
 	}
 
 	log.Fatal(r.Run(config.Get("http.port")))
