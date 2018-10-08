@@ -61,13 +61,26 @@ func GetCustomerView(c *gin.Context) {
 
 // CreateCustomerView returns create customer view
 func CreateCustomerView(c *gin.Context) {
-	c.HTML(http.StatusOK, "customer/edit.tmpl", gin.H{
-		"title": "Main website",
+	c.HTML(http.StatusOK, "customers/create.tmpl", gin.H{
+		"title": "Create customer",
 	})
 }
 
 // CreateCustomer creates customer
-func CreateCustomer(c *gin.Context) {}
+func CreateCustomer(c *gin.Context) {
+	var customer models.Customer
+
+	if e := c.ShouldBind(&customer); e != nil {
+		c.AbortWithStatus(http.StatusNotAcceptable)
+		return
+	}
+
+	db := shared.GetConnection()
+
+	db.Create(&customer)
+
+	c.Redirect(http.StatusMovedPermanently, "/customer/"+fmt.Sprint(customer.ID))
+}
 
 // UpdateCustomerView returns update customer view
 func UpdateCustomerView(c *gin.Context) {
