@@ -88,22 +88,53 @@ func UpdateCustomerView(c *gin.Context) {
 
 	if e != nil {
 		c.AbortWithStatus(http.StatusBadRequest)
+		return
 	}
 
 	db := shared.GetConnection()
 
 	var customer models.Customer
 
-	db.First(&customer, id)
+	if db.First(&customer, id).Error != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
 
-	c.HTML(http.StatusOK, "customer/edit.tmpl", gin.H{
+	c.HTML(http.StatusOK, "customer/update.tmpl", gin.H{
 		"title":    "Update " + customer.FirstName + " " + customer.LastName,
 		"customer": customer,
 	})
 }
 
 // UpdateCustomer updates customer
-func UpdateCustomer(c *gin.Context) {}
+func UpdateCustomer(c *gin.Context) {
+	id, e := strconv.ParseUint(c.Param("id"), 10, 32)
+
+	if e != nil {
+		c.AbortWithStatus(http.StatusBadRequest)
+		return
+	}
+
+	var model models.Customer
+
+	if e := c.ShouldBind(&model); e != nil {
+		c.AbortWithStatus(http.StatusNotAcceptable)
+		return
+	}
+
+	db := shared.GetConnection()
+
+	var customer models.Customer
+
+	if db.First(&customer, id).Error != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
+
+	db.Model(customer).Updates(model)
+
+	c.Redirect(http.StatusMovedPermanently, "/customer/"+fmt.Sprint(customer.ID))
+}
 
 // DeleteCustomerView returns delete customer view
 func DeleteCustomerView(c *gin.Context) {
