@@ -142,13 +142,17 @@ func DeleteCustomerView(c *gin.Context) {
 
 	if e != nil {
 		c.AbortWithStatus(http.StatusBadRequest)
+		return
 	}
 
 	db := shared.GetConnection()
 
 	var customer models.Customer
 
-	db.First(&customer, id)
+	if db.First(&customer, id).Error != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
 
 	c.HTML(http.StatusOK, "customer/delete.tmpl", gin.H{
 		"title":    "Delete " + customer.FirstName + " " + customer.LastName,
@@ -162,11 +166,17 @@ func DeleteCustomer(c *gin.Context) {
 
 	if e != nil {
 		c.AbortWithStatus(http.StatusBadRequest)
+		return
 	}
 
 	db := shared.GetConnection()
 
 	var customer models.Customer
 
-	db.Delete(&customer, id)
+	if db.Delete(&customer, id).Error != nil {
+		c.AbortWithStatus(http.StatusNotModified)
+		return
+	}
+
+	c.Redirect(http.StatusMovedPermanently, "/customers")
 }
