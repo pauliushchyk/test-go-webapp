@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -18,6 +19,7 @@ func GetCustomersView(c *gin.Context) {
 
 	if e != nil {
 		c.AbortWithStatus(http.StatusBadRequest)
+		return
 	}
 
 	by := c.Query("by")
@@ -29,7 +31,10 @@ func GetCustomersView(c *gin.Context) {
 	var customers []models.Customer
 	var count int
 
-	db.Where("LOWER(first_name) LIKE LOWER(?)", "%"+search+"%").Or("last_name LIKE ?", "%"+search+"%").Order(strings.TrimSpace(strings.Join([]string{by, order}, " "))).Limit(10).Offset((page - 1) * 10).Find(&customers).Limit(-1).Offset(-1).Count(&count)
+	if db.Where("LOWER(first_name) LIKE LOWER(?)", "%"+search+"%").Or("last_name LIKE ?", "%"+search+"%").Order(strings.TrimSpace(strings.Join([]string{by, order}, " "))).Limit(10).Offset((page-1)*10).Find(&customers).Limit(-1).Offset(-1).Count(&count).Error != nil {
+		c.AbortWithStatus(http.StatusBadRequest)
+		return
+	}
 
 	c.HTML(http.StatusOK, "customers/view.tmpl", gin.H{
 		"title":     "Customers",
@@ -45,13 +50,17 @@ func GetCustomerView(c *gin.Context) {
 
 	if e != nil {
 		c.AbortWithStatus(http.StatusBadRequest)
+		return
 	}
 
 	db := shared.GetConnection()
 
 	var customer models.Customer
 
-	db.First(&customer, id)
+	if db.First(&customer, id).Error != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
 
 	c.HTML(http.StatusOK, "customer/view.tmpl", gin.H{
 		"title":    customer.FirstName + " " + customer.LastName,
