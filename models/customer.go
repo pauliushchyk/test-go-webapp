@@ -2,18 +2,19 @@ package models
 
 import (
 	"time"
-
-	"github.com/jinzhu/gorm"
 )
 
 // Customer model
 type Customer struct {
-	gorm.Model
+	ID        uint       `gorm:"primary_key"`
+	CreatedAt time.Time  `form:"-" binding:"-"`
+	UpdatedAt time.Time  `form:"-" binding:"-"`
+	DeletedAt *time.Time `form:"-" sql:"index" binding:"-"`
 
-	FirstName string     `gorm:"size:100;not null;index" binding:"required"`
-	LastName  string     `gorm:"size:100;not null;index" binding:"required"`
-	BirthDate *time.Time `gorm:"not null" binding:"required"`
-	Gender    string     `gorm:"not null" binding:"required"`
-	Email     string     `gorm:"not null" binding:"required"`
-	Address   string     `gorm:"size:200"`
+	FirstName string    `form:"first_name" gorm:"size:100;not null;index" json:"first_name" binding:"required"`
+	LastName  string    `form:"last_name" gorm:"size:100;not null;index" json:"last_name" binding:"required"`
+	BirthDate time.Time `form:"birth_date" gorm:"not null" json:"birth_date" binding:"exists" time_format:"2006-01-02"`
+	Gender    string    `form:"gender" gorm:"not null" json:"gender" binding:"required"`
+	Email     string    `form:"email" gorm:"not null" json:"email" binding:"required"`
+	Address   string    `form:"address" gorm:"size:200" json:"address" binding:"required"`
 }
