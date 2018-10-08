@@ -14,6 +14,7 @@ const createLink = (page) => {
   }
 
   a.setAttribute('href', query);
+  a.classList.add('action')
   a.text = page;
 
   return a;
