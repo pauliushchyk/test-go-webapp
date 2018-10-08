@@ -8,8 +8,8 @@
     <button class="button" type="submit">Go</button>
   </form>
 
-  <a class="button button--accent action" href="/customers/create">
-    <i class="fa fa-pen action__icon"></i>
+  <a class="button button--accent" href="/customers/create">
+    <i class="fa fa-plus button__icon"></i>
     <span>Add a customer</span>
   </a>
 </div>
@@ -54,15 +54,15 @@
       <td>{{ .Email }}</td>
       <td>{{ .Address }}</td>
       <td>
-        <a class="customer-action" href="/customer/{{ .ID }}">
+        <a class="action" href="/customer/{{ .ID }}">
           <i class="fa fa-eye"></i>
         </a>
 
-        <a class="customer-action" href="/customer/{{ .ID }}/update">
+        <a class="action" href="/customer/{{ .ID }}/update">
           <i class="fa fa-pen"></i>
         </a>
 
-        <a class="customer-action" href="/customer/{{ .ID }}/delete">
+        <a class="action" href="/customer/{{ .ID }}/delete">
           <i class="fa fa-trash"></i>
         </a>
       </td>

@@ -1,14 +1,10 @@
 {{ define "content" }}
 
-<button class="back" id="back-button">
-  <i class="fa fa-arrow-left"></i>
-  <span>back</span>
-</button>
-
 <form action="/customer/{{ .customer.ID }}/delete" method="POST">
   <h2 class="title">Are you sure you want to delete {{ .customer.FirstName }} {{ .customer.LastName }}?</h2>
 
   <button id="delete-button" class="button" data-id="{{ .customer.ID }}" type="submit">Yes, I am</button>
+  <button class="button button--accent" id="back-button" type="button">Cancel</button>
 </form>
 
 {{ end }}

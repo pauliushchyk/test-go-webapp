@@ -1,10 +1,5 @@
 {{ define "content" }}
 
-<button class="back" id="back-button">
-  <i class="fa fa-arrow-left"></i>
-  <span>back</span>
-</button>
-
 <form action="/customer/{{ .customer.ID }}/update" class="form" method="POST">
   <h2 class="title">{{ .title }}</h2>
 
@@ -22,13 +17,13 @@
 
   <div class="form-inline-group">
     <div class="form-checkbox-field">
-      <input {{ if eq .customer.Gender `Female` }}checked{{ else }}{{ end }} class="visually-hidden" id="gender-female"
+      <input {{ if eq .customer.Gender `Female` }} checked{{ else }}{{ end }} class="visually-hidden" id="gender-female"
         name="gender" type="radio" value="Female">
       <label for="gender-female">Female</label>
     </div>
 
     <div class="form-checkbox-field">
-      <input {{ if eq .customer.Gender `Male` }}checked{{ else }}{{ end }} class="visually-hidden" id="gender-male"
+      <input {{ if eq .customer.Gender `Male` }} checked{{ else }}{{ end }} class="visually-hidden" id="gender-male"
         name="gender" type="radio" value="Male">
       <label for="gender-male">Male</label>
     </div>
@@ -42,7 +37,10 @@
     <input name="address" placeholder="Address" type="text" value="{{ .customer.Address }}">
   </div>
 
-  <button class="button form-button" type="submit">Submit</button>
+  <div class="form-buttons-field">
+    <button class="button form-button" type="submit">Submit</button>
+    <button class="button button--accent form-button" id="back-button" type="button">Cancel</button>
+  </div>
 </form>
 
 {{ end }}
