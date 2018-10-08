@@ -2,9 +2,13 @@
 
 <div class="customer-card">
   <div>
-    <h3 class="title">
-      {{ .customer.FirstName }} {{ .customer.LastName }}
-    </h3>
+    <div class="customer-card__title">
+      <h3 class="title">
+        {{ .customer.FirstName }} {{ .customer.LastName }}
+      </h3>
+      <a class="button button--accent" href="/customers">Full list</a>
+    </div>
+
     <p class="customer-card__description customer-card__block">{{ .customer.Gender }}</p>
   </div>
 
@@ -28,11 +32,10 @@
     {{end}}
   </div>
 
-  <p class="customer-card__block">
-    <a class="button " href="/customer/{{ .customer.ID }}/update">Update</a>
+  <div>
+    <a class="button" href="/customer/{{ .customer.ID }}/update">Update</a>
     <a class="button button--danger" href="/customer/{{ .customer.ID }}/delete">Delete</a>
-    <a class="button button--accent" href="/customers">Full list</a>
-  </p>
+  </div>
 </div>
 
 {{ end }}
