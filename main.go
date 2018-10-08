@@ -20,6 +20,12 @@ func main() {
 
 	db.AutoMigrate(&models.Customer{})
 
+	r := setUpRouter()
+
+	log.Fatal(r.Run(config.Get("http.port")))
+}
+
+func setUpRouter() *gin.Engine {
 	r := gin.Default()
 	r.RedirectTrailingSlash = true
 	r.RedirectFixedPath = true
@@ -27,7 +33,9 @@ func main() {
 	r.Static("/css", "./static/css")
 	r.Static("/js", "./static/js")
 
-	r.NoRoute(controllers.NotFoundHandler)
+	r.NoRoute(controllers.NotFoundView)
+
+	r.GET("/ping", controllers.Ping)
 
 	csr := r.Group("/customers")
 	{
@@ -48,7 +56,7 @@ func main() {
 		cr.POST("/:id/delete", controllers.DeleteCustomer)
 	}
 
-	log.Fatal(r.Run(config.Get("http.port")))
+	return r
 }
 
 func createRender() multitemplate.Renderer {

@@ -6,7 +6,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// NotFoundHandler returns NotFound page
-func NotFoundHandler(c *gin.Context) {
+// NotFoundView returns NotFound page
+func NotFoundView(c *gin.Context) {
 	c.HTML(http.StatusNotFound, "common/404.tmpl", nil)
+}
+
+// Ping returns ok if server is ok
+func Ping(c *gin.Context) {
+	c.String(http.StatusOK, "ok")
 }
