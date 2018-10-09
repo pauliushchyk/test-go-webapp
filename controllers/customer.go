@@ -79,7 +79,7 @@ func CreateCustomerView(c *gin.Context) {
 func CreateCustomer(c *gin.Context) {
 	var customer models.Customer
 
-	if e := c.ShouldBind(&customer); e != nil {
+	if e := c.Bind(&customer); e != nil {
 		c.AbortWithStatus(http.StatusNotAcceptable)
 		return
 	}
@@ -126,7 +126,7 @@ func UpdateCustomer(c *gin.Context) {
 
 	var model models.Customer
 
-	if e := c.ShouldBind(&model); e != nil {
+	if e := c.Bind(&model); e != nil {
 		c.AbortWithStatus(http.StatusNotAcceptable)
 		return
 	}

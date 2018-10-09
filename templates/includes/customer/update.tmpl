@@ -17,14 +17,14 @@
 
   <div class="form-inline-group">
     <div class="form-checkbox-field">
-      <input {{ if eq .customer.Gender `Female` }} checked{{ else }}{{ end }} class="visually-hidden" id="gender-female"
-        name="gender" type="radio" value="Female">
+      <input {{ if eq .customer.Gender `female` }}checked{{ else }}{{ end }} class="visually-hidden" id="gender-female"
+        name="gender" type="radio" value="female">
       <label for="gender-female">Female</label>
     </div>
 
     <div class="form-checkbox-field">
-      <input {{ if eq .customer.Gender `Male` }} checked{{ else }}{{ end }} class="visually-hidden" id="gender-male"
-        name="gender" type="radio" value="Male">
+      <input {{ if eq .customer.Gender `male` }}checked{{ else }}{{ end }} class="visually-hidden" id="gender-male"
+        name="gender" type="radio" value="male">
       <label for="gender-male">Male</label>
     </div>
   </div>
