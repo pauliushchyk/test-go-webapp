@@ -33,7 +33,7 @@ func TestNotFoundRoute(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/invalid-route", nil)
 	r.ServeHTTP(w, req)
 
-	assert.Equal(t, http.StatusNotFound, w.Code)
+	assert.Equal(t, http.StatusMovedPermanently, w.Code)
 }
 
 func TestGetCustomerRoute(t *testing.T) {
