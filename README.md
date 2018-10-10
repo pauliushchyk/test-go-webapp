@@ -2,9 +2,19 @@
 
 ## set up
 
+### installation
+
 1. install [dep](https://golang.github.io/dep/docs/introduction.html)
 2. run `dep ensure`
-3. restore database if it doesn't exist (use backup file)
-4. change configuration `config/development.toml` or `config/production.toml`
-5. run `go test -run ''` for checking tests
-6. run `go run main.go` for running app
+
+### running app
+
+1. change configuration `config/development.toml` or `config/production.toml`
+2. run `go test -run ''` for checking tests
+3. run `go run main.go` for running app
+
+### restoring data
+
+1. restore data by executing INSERT query from `backup` file
+
+Also you can create database before running app and restore structure with data by running queries in `backup` file
