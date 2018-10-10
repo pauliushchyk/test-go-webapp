@@ -9,9 +9,10 @@
 
 ### running app
 
-1. change configuration `config/development.toml` or `config/production.toml`
-2. run `go test -run ''` for checking tests
-3. run `go run main.go` for running app
+1. create `Customers` database
+2. change configuration `config/development.toml` or `config/production.toml`
+3. run `go test -run ''` for checking tests
+4. run `go run main.go` for running app
 
 ### restoring data
 
