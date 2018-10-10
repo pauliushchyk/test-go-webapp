@@ -8,6 +8,11 @@ import (
 
 // NotFoundView returns NotFound page
 func NotFoundView(c *gin.Context) {
+	c.HTML(http.StatusNotFound, "common/404.tmpl", nil)
+}
+
+// NoRoute redirects to get customers route
+func NoRoute(c *gin.Context) {
 	c.Redirect(http.StatusMovedPermanently, "/customers")
 }
 

@@ -33,7 +33,7 @@ func setUpRouter() *gin.Engine {
 	r.Static("/css", "./static/css")
 	r.Static("/js", "./static/js")
 
-	r.NoRoute(controllers.NotFoundView)
+	r.NoRoute(controllers.NoRoute)
 
 	r.GET("/ping", controllers.Ping)
 
