@@ -90,7 +90,7 @@ func TestUpdateCustomerRoute(t *testing.T) {
 	assert.Equal(t, http.StatusOK, w.Code)
 
 	w = httptest.NewRecorder()
-	req, _ = http.NewRequest("POST", "/customer/"+fmt.Sprint(customer.ID)+"/update", strings.NewReader("first_name=Jane&last_name=Doe&birth_date="+time.Now().Format("2006-01-02")+"&gender=Female&email=jane@doe.com&address=Jane's address"))
+	req, _ = http.NewRequest("POST", "/customer/"+fmt.Sprint(customer.ID)+"/update", strings.NewReader("first_name=Jane&last_name=Doe&birth_date="+time.Now().Format("2006-01-02")+"&gender=female&email=jane@doe.com&address=Jane's address"))
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded; param=value")
 	r.ServeHTTP(w, req)
 
@@ -101,7 +101,7 @@ func TestUpdateCustomerRoute(t *testing.T) {
 	db.First(&updatedCustomer, customer.ID)
 
 	assert.Equal(t, "Jane", updatedCustomer.FirstName)
-	assert.Equal(t, "Female", updatedCustomer.Gender)
+	assert.Equal(t, "female", updatedCustomer.Gender)
 	assert.Equal(t, "jane@doe.com", updatedCustomer.Email)
 	assert.Equal(t, "Jane's address", updatedCustomer.Address)
 }
