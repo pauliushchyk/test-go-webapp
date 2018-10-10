@@ -8,7 +8,7 @@ import (
 
 // NotFoundView returns NotFound page
 func NotFoundView(c *gin.Context) {
-	c.HTML(http.StatusNotFound, "common/404.tmpl", nil)
+	c.Redirect(http.StatusMovedPermanently, "/customers")
 }
 
 // Ping returns ok if server is ok
