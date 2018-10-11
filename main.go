@@ -2,8 +2,6 @@ package main
 
 import (
 	"log"
-	"path/filepath"
-	"strings"
 
 	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-gonic/gin"
@@ -62,15 +60,12 @@ func setUpRouter() *gin.Engine {
 func createRender() multitemplate.Renderer {
 	r := multitemplate.NewRenderer()
 
-	includes, e := filepath.Glob("templates/includes/**/*.tmpl")
-
-	if e != nil {
-		panic(e.Error())
-	}
-
-	for _, include := range includes {
-		r.AddFromFiles(strings.Replace(include, "templates/includes/", "", -1), "templates/layouts/index.tmpl", include)
-	}
+	r.AddFromFiles("common/404.tmpl", "templates/layouts/index.tmpl", "templates/includes/common/404.tmpl")
+	r.AddFromFiles("customer/delete.tmpl", "templates/layouts/index.tmpl", "templates/includes/customer/delete.tmpl")
+	r.AddFromFiles("customer/update.tmpl", "templates/layouts/index.tmpl", "templates/includes/customer/update.tmpl")
+	r.AddFromFiles("customer/view.tmpl", "templates/layouts/index.tmpl", "templates/includes/customer/view.tmpl")
+	r.AddFromFiles("customers/create.tmpl", "templates/layouts/index.tmpl", "templates/includes/customers/create.tmpl")
+	r.AddFromFiles("customers/view.tmpl", "templates/layouts/index.tmpl", "templates/includes/customers/view.tmpl")
 
 	return r
 }
