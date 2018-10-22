@@ -41,7 +41,7 @@ func TestGetCustomerRoute(t *testing.T) {
 		FirstName: "John",
 		LastName:  "Doe",
 		BirthDate: time.Now(),
-		Gender:    "Male",
+		Gender:    "male",
 		Email:     "email@mail.com",
 		Address:   "address",
 	}
@@ -76,7 +76,7 @@ func TestUpdateCustomerRoute(t *testing.T) {
 		FirstName: "John",
 		LastName:  "Doe",
 		BirthDate: time.Now(),
-		Gender:    "Male",
+		Gender:    "male",
 		Email:     "email@mail.com",
 		Address:   "address",
 	}
@@ -111,7 +111,7 @@ func TestDeleteCustomerRoute(t *testing.T) {
 		FirstName: "John",
 		LastName:  "Doe",
 		BirthDate: time.Now(),
-		Gender:    "Male",
+		Gender:    "male",
 		Email:     "email@mail.com",
 		Address:   "address",
 	}
